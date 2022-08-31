@@ -1,3 +1,6 @@
+<%@ page import="java.sql.*"%>
+<%@page import="controller.GetDataFromDB"%>
+
 <%
 	if(session.getAttribute("OfficeName")==null){
 		response.sendRedirect("OfficeLogin.jsp");
@@ -56,6 +59,15 @@
 
 
     <!-- Body content -->
+    <%
+			ResultSet rs1 = null;
+	%>
+
+	<%
+			String query1 = "select * from bonafide";
+
+			rs1 = GetDataFromDB.validate(query1);
+	%>
 
     <div class="header-connect">
         <div class="container">
@@ -66,7 +78,60 @@
     </div>
      <h1  align="center" >Student DashBoard</h1>
     <h1>Welcome : <%= session.getAttribute("OfficeName") %></h1>
-    <button type="submit" class="btn btn-default" id="btnStudent"><a href="LogotOffice">Logout</a></button>
+    <button type="submit" class="btn btn-default" id="btnStudent" style="background-color:white;border: 1px solid #b31b1a;"><a href="LogotOffice">Logout</a></button>
+    <div class="container mt-3">
+			
+			<table class="table table-bordered table-dark"
+				class="table-responsive " style="background-color: #32383e;">
+				<thead>
+					<tr>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Roll Number</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">First Name</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Last Name</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Mobile Number</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Date of Birth</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Passout Year</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Semester</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Application Status</th>
+					</tr>
+				</thead>
+				<tbody>
+					<%
+						while (rs1.next()) {
+					%>
+					<tr>
+						<td scope="row" style="color: #f7f1f1f5;"><%=rs1.getString(1)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(2)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(3)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(4)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(5)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(6)%></td>
+						<td style="color: #f7f1f1f5;"><%=rs1.getString(7)%></td>
+						<td style="color: #f7f1f1f5;">
+							<% if (rs1.getString(8) != null) {%> 
+							<% if (rs1.getString(8).equalsIgnoreCase("0")) {%>
+							<input class="iradio_square-yellow checked"><label>&nbsp;Application to Desk</label>
+							<%}%> 
+							<% if (rs1.getString(8).equalsIgnoreCase("1")) {%>
+							<input class="iradio_square-blue checked"><label>&nbsp;Accepted by Office</label>
+							<%}%> 
+							<% if (rs1.getString(8).equalsIgnoreCase("2")) {%>
+							<input class="iradio_square-orange checked"><label>&nbsp;Accepted by HOD</label>
+							<%}%> 
+						<% }%>
+						</td>
+
+					</tr>
+					<%
+						}
+					%>
+				</tbody>
+			</table>
+		</div>
+  
+    
+    
+    
 
     <script src="assets/js/modernizr-2.6.2.min.js"></script>
 

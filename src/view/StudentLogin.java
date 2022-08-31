@@ -71,6 +71,7 @@ public class StudentLogin extends HttpServlet {
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("changePassword.jsp");
 					requestDispatcher.forward(request, response);		
 				}
+				session.setAttribute("rollNumber", userId);
 				session.setAttribute("name", rs.getString("studentFirstName"));
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("StudentDashBoard.jsp");
 				response.sendRedirect("StudentDashBoard.jsp");
