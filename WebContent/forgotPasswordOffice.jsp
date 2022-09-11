@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -9,7 +11,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Change Password</title>
+    <title>Change Password Office</title>
     <meta name="description" content="Apartment Management System">
     <meta name="author" content="Chetas">
     <meta name="keyword" content="Apartment System, complaint System, Java">
@@ -55,7 +57,7 @@
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 profiel-container">
 
-                    <form action="forgotPassword" method="POST">
+                    <form action="forgotPasswordOffice" method="POST">
 
                         <div class="profiel-header">
                             <h3>
@@ -74,7 +76,7 @@
                             </div>
                             <div class="col-sm-10 col-sm-offset-1">
                                 <button type="submit" class="btn btn-finish btn-primary pull-right"> Submit</button>
-                                <button onclick=" window.open('StudentLogin.jsp')"
+                                <button onclick=" window.open('OfficeLogin.jsp')"
                                     class="btn btn-finish btn-primary pull-left"> Back to
                                     Login</button>
                             </div>
@@ -87,7 +89,7 @@
                     </form>
 
                 </div>
-            </div>
+            </div><!-- end row -->
 
         </div>
     </div>

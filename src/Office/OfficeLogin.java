@@ -61,6 +61,11 @@ public class OfficeLogin extends HttpServlet {
 		try {
 			if(OfficeLoginDAO.validate(userId, password)){
 				rs.next();
+				if(rs.getInt("flag")==0){
+					session.setAttribute("email", rs.getString("OfficeEmail"));
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("changePasswordOffice.jsp");
+					requestDispatcher.forward(request, response);		
+				}
 				session.setAttribute("OfficeName", rs.getString("officeFirstName"));
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("OfficeDashBoard.jsp");
 				requestDispatcher.forward(request, response);

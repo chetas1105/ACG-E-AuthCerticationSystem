@@ -56,7 +56,7 @@ response.setDateHeader("Expires",-1);
 
 %>
     <!-- Body content -->
-
+<input type="hidden" id="status"  value="<%= request.getAttribute("status") %>">
     <div class="header-connect">
         <div class="container">
             <div class="cnt">
@@ -92,7 +92,7 @@ response.setDateHeader("Expires",-1);
                                 <input type="password" class="form-control" id="password" name = "HodPassword">
                             </div>
                             <div class="forgot">
-                                <a href="#">Forgot Password ?</a>
+                                <a href="forgotPasswordHOD.jsp">Forgot Password ?</a>
                             </div>
 
                     </div>

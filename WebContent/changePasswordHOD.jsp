@@ -39,6 +39,8 @@
 </head>
 
 <body>
+
+<input type="hidden" id="status"  value="<%= request.getAttribute("status") %>">
     <div class="header-connect">
         <div class="container">
             <div class="cnt">
@@ -55,27 +57,31 @@
             <div class="row">
                 <div class="col-sm-10 col-sm-offset-1 profiel-container">
 
-                    <form action="forgotPassword" method="POST">
+                    <form action="UpdatePasswordHOD" method="POST">
 
                         <div class="profiel-header">
                             <h3>
-                                <b>Enter Your User Id</b>
+                                <b>UPDATE</b> YOUR PASSWORD <br>
+                                <small>All change will send to your e-mail.</small>
                             </h3>
                             <hr>
                         </div>
 
-                        <div class="clear">!
+                        <div class="clear">
+
                             <div class="col-sm-10 col-sm-offset-1">
                                 <div class="form-group">
-                                    <label for="email">User id</label>
-                                    <input type="text" class="form-control" id="userid" name="userId">
+                                    <label>Password <small>(required)</small></label>
+                                    <input name="Password" type="password" class="form-control">
                                 </div>
-
+                                <div class="form-group">
+                                    <label>Confirm password : <small>(required)</small></label>
+                                    <input type="password" class="form-control" name ="ConfirmPassword">
+                                </div>
                             </div>
                             <div class="col-sm-10 col-sm-offset-1">
-                                <button type="submit" class="btn btn-finish btn-primary pull-right"> Submit</button>
-                                <button onclick=" window.open('StudentLogin.jsp')"
-                                    class="btn btn-finish btn-primary pull-left"> Back to
+                                <button type="submit" class="btn btn-finish btn-primary pull-right"> Upadte</button>
+                                <button onclick=" window.open('HODLogin.jsp')" class="btn btn-finish btn-primary pull-left"> Back to
                                     Login</button>
                             </div>
 
@@ -87,7 +93,7 @@
                     </form>
 
                 </div>
-            </div>
+            </div><!-- end row -->
 
         </div>
     </div>
@@ -111,6 +117,16 @@
     <script src="assets/js/price-range.js"></script>
 
     <script src="assets/js/main.js"></script>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" href="alert/dist/sweetalert.css">
+    <script type="text/javascript">
+    var status = document.getElementById("status").value;
+    if(status=="misMatch"){
+    	swal("Error","Password not matched","error");
+    }
+    </script>
+    
 
 </body>
 

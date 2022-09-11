@@ -61,6 +61,12 @@ public class HODLogin extends HttpServlet {
 		try {
 			if(HODLoginDAO.validate(userId, password)){
 				rs.next();
+				if(rs.getInt("flag")==0){
+					session.setAttribute("email", rs.getString("HODEmail"));
+					RequestDispatcher requestDispatcher = request.getRequestDispatcher("changePasswordHOD.jsp");
+					requestDispatcher.forward(request, response);		
+				}
+				rs.next();
 				session.setAttribute("HODFirstName", rs.getString("hodFirstName"));
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("HODDashBoard.jsp");
 				requestDispatcher.forward(request, response);

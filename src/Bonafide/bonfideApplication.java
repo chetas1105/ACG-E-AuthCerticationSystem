@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,9 +47,14 @@ public class bonfideApplication extends HttpServlet {
 		String passoutYear = request.getParameter("year");
 		String semester = request.getParameter("semester");
 		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now();  
+		System.out.println(dtf.format(now));  
+		
 		
 		HttpSession session = request.getSession();
 		String query ="insert into bonafide " + "(rollNumber, firstname, lastName, mobileNumber, dob ,passoutYear, semester) values "+ "(?,?,?,?,?,?,?);";
+		String query1 ="insert into allcertificates " + "(RollNumber, studentsName, certificateType, Date, paymentStatus ,ApplicationStatus) values "+ "(?,?,?,?,?,?);";
 		try {
 			Connection con = DBConnector.getConnection();
 			PreparedStatement ps = con.prepareStatement(query);
@@ -60,8 +67,19 @@ public class bonfideApplication extends HttpServlet {
 			ps.setString(6, passoutYear);
 			ps.setString(7, semester);
 			
+			PreparedStatement ps2 = con.prepareStatement(query1);
+			ps2.setString(1,  (String) session.getAttribute("rollNumber"));
+			ps2.setString(2,  firstName+" "+lastName);
+			ps2.setString(3,  "Bonafide Certificate");
+			ps2.setString(4,  dtf.format(now));
+			ps2.setString(5,  String.valueOf(0));
+			ps2.setString(6,  String.valueOf(0));
+			
+			
+			
 			
 			int result = ps.executeUpdate();
+			int result2 = ps2.executeUpdate();
 			
 			if(result > 0){
 				System.out.println("Data submitted");
@@ -79,7 +97,6 @@ public class bonfideApplication extends HttpServlet {
 			
 			
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

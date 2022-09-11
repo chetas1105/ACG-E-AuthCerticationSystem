@@ -68,6 +68,7 @@ public class StudentLogin extends HttpServlet {
 			if(StudentLoginDAO.validate(userId, password)){
 				rs.next();
 				if(rs.getInt("flag")==0){
+					session.setAttribute("email", rs.getString("studentEmail"));
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("changePassword.jsp");
 					requestDispatcher.forward(request, response);		
 				}
