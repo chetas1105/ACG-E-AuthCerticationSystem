@@ -43,7 +43,7 @@ public class StudentLogin extends HttpServlet {
 		ResultSet rs = null;
 		Connection conn = null;
 		try {
-			conn = DBConnector.getConnection();;
+			conn = DBConnector.getConnection();
 			PreparedStatement ps=conn.prepareStatement(query);  
 			ps.setString(1, userId);
 			ps.setString(2, password);

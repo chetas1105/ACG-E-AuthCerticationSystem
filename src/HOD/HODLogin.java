@@ -66,7 +66,6 @@ public class HODLogin extends HttpServlet {
 					RequestDispatcher requestDispatcher = request.getRequestDispatcher("changePasswordHOD.jsp");
 					requestDispatcher.forward(request, response);		
 				}
-				rs.next();
 				session.setAttribute("HODFirstName", rs.getString("hodFirstName"));
 				RequestDispatcher requestDispatcher = request.getRequestDispatcher("HODDashBoard.jsp");
 				requestDispatcher.forward(request, response);

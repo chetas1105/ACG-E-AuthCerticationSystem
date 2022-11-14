@@ -1,5 +1,5 @@
 <%@ page import="java.sql.*"%>
-<%@page import="controller.GetDataFromDB"%>
+<%@page import="controller.DBConnector"%>
 
 <%
 	if(session.getAttribute("OfficeName")==null){
@@ -55,17 +55,21 @@
 <body>
 
 
-   
-    <%
-			ResultSet rs1 = null;
+	<%
+			ResultSet rs2 = null;
+	 		Connection conn = null;
 	%>
 
 	<%
-			String query1 = "select * from bonafide";
+			String query1 = "select * from allcertificates where ApplicationStatus =1";
+			conn = DBConnector.getConnection();
+			PreparedStatement ps=conn.prepareStatement(query1);  
+			
+			
+			rs2 = ps.executeQuery();
 
-			rs1 = GetDataFromDB.validate(query1);
+			//rs1 = GetDataFromDB.validate(query1);
 	%>
-
     <div class="header-connect">
         <div class="container">
             <div class="cnt">
@@ -73,7 +77,7 @@
             </div>
         </div>
     </div>
-     <h1  align="center" >Student DashBoard</h1>
+     <h1  align="center" >Office DashBoard</h1>
     <h1>Welcome : <%= session.getAttribute("OfficeName") %></h1>
     <button type="submit" class="btn btn-default" id="btnStudent" style="background-color:white;border: 1px solid #b31b1a;"><a href="LogotOffice">Logout</a></button>
     <div class="container mt-3">
@@ -82,40 +86,54 @@
 				class="table-responsive " style="background-color: #32383e;">
 				<thead>
 					<tr>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Roll Number</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">First Name</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Last Name</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Mobile Number</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Date of Birth</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Passout Year</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Semester</th>
-						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Application Status</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Enrollment Number</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Student Name</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Certificate Type</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Application Date</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Payment Status</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Details</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Accept</th>
+						<th scope="col" style="text-align: center; color: #f7f1f1f5;">Reject</th>
+						
 					</tr>
 				</thead>
 				<tbody>
 					<%
-						while (rs1.next()) {
+						while (rs2.next()) {
 					%>
 					<tr>
-						<td scope="row" style="color: #f7f1f1f5;"><%=rs1.getString(1)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(2)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(3)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(4)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(5)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(6)%></td>
-						<td style="color: #f7f1f1f5;"><%=rs1.getString(7)%></td>
-						<td style="color: #f7f1f1f5;">
-							<% if (rs1.getString(8) != null) {%> 
-							<% if (rs1.getString(8).equalsIgnoreCase("0")) {%>
-							<input class="iradio_square-yellow checked"><label>&nbsp;Application to Desk</label>
-							<%}%> 
-							<% if (rs1.getString(8).equalsIgnoreCase("1")) {%>
-							<input class="iradio_square-blue checked"><label>&nbsp;Accepted by Office</label>
-							<%}%> 
-							<% if (rs1.getString(8).equalsIgnoreCase("2")) {%>
-							<input class="iradio_square-orange checked"><label>&nbsp;Accepted by HOD</label>
-							<%}%> 
+						<td scope="row" style="color: #f7f1f1f5;text-align: center;"><%=rs2.getString(1)%></td>
+						<td style="color: #f7f1f1f5;text-align: center;"><%=rs2.getString(2)%></td>
+						<td style="color: #f7f1f1f5; text-align: center;"><%=rs2.getString(3)%></td>
+						<td style="color: #f7f1f1f5; text-align: center;"><%=rs2.getString(4)%></td>
+						
+						<td style="color: #f7f1f1f5;text-align: center;">
+							<% if (rs2.getString(5) != null) {%> 
+							<% if (rs2.getString(5).equalsIgnoreCase("0")) {%>
+							Payment Pending <%}%> 
+							<% if (rs2.getString(5).equalsIgnoreCase("1")) {%>
+							Payment Successful
+							<%}%>  
 						<% }%>
+						</td>
+						
+						
+						
+						<td style="color: #f7f1f1f5; text-align: center;">
+							
+							 <button  class="btn btn-default  btn-lg float-right" id="btnStudent1" style="background-color:#cfd9e3;border: 1px solid #cfd9e3;">View Details</button>
+						</td>
+						<td style="color: #f7f1f1f5; text-align: center;">
+							<form action="AcceptApplicationOffice" method="post">
+							 <button  class="btn btn-default  btn-lg float-right" id="btnStudent1" style="background-color:#2ba14d;border: 1px solid #cfd9e3;"
+							 type="submit" name="bt" value="<%=rs2.getString(1)%>">Accept </button>
+							 </form>
+						</td>
+						<td style="color: #f7f1f1f5; text-align: center;">
+							<form action="RejectApplicationOffice" method="post">
+							 <button  class="btn btn-default  btn-lg float-right" id="btnStudent1" style="background-color:#2ba14d;border: 1px solid #cfd9e3;"
+							 type="submit" name="bt1" value="<%=rs2.getString(1)%>">Reject Application </button>
+							 </form>
 						</td>
 
 					</tr>
