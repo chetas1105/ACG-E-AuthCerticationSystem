@@ -20,6 +20,7 @@ response.setContentType("application/pdf");
 Document document = new Document();
 PdfWriter writer=PdfWriter.getInstance(document, response.getOutputStream());
 document.open();
+//Change from here
 Paragraph p = new Paragraph();
 p.add("Text 1");
 p.setAlignment(Element.ALIGN_CENTER);

@@ -38,6 +38,7 @@ public class Download extends HttpServlet {
 		String certificateId = request.getParameter("bt1");
 		String FILE_NAME = "E:\\Temp\\NEW\\chillyfacts.pdf";
         Document document = new Document();
+        
         try {
             PdfWriter.getInstance(document, new FileOutputStream(new File(FILE_NAME)));
             document.open();

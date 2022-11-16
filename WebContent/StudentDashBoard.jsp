@@ -27,7 +27,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Student Dashboard</title>
+    <title>Student DashBoard</title>
     <meta name="description" content="Apartment Management System">
     <meta name="author" content="Chetas">
     <meta name="keyword" content="Apartment System, complaint System, Java">
